@@ -16,9 +16,13 @@ class ListDiet(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = DietSerializer(data=request.data)
+        
+       
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            instance = serializer.save()
+            response_data = serializer.data
+            response_data["id"] = instance.id
+            return Response(response_data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -97,17 +101,27 @@ class DietDetail(APIView):
     
 
 class ListWorkout(APIView):
-    def get(self, request):
+    def get(self, request,*args, **kwargs):
         workout = Workout.objects.all()
         serializer = WorkoutSerializers(workout, many=True)
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        serializer = WorkoutSerializers(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+        data = {
+            'body_part': request.data.get('body_part'),
+            'exercise': request.data.get('exercise'),
+            'sets': request.data.get('sets'),
+            'reps': request.data.get('reps'),
+            'date': request.data.get('date'),
+        }
+        serializer = WorkoutSerializers(data=request.data)
+        
+        if serializer.is_valid():
+            instance = serializer.save()
+            response_data = serializer.data
+            response_data["id"] = instance.id
+            return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
