@@ -1,6 +1,13 @@
 from django.db import models
 from rest_framework import serializers
 
+
+class Journal(models.Model):
+    date = models.DateField(blank=True, null=True, default="")
+
+    class Meta:
+        ordering = ['date']
+
 class Diet(models.Model):
     id = models.IntegerField(primary_key=True)
     breakfast = models.CharField(max_length=250)
@@ -48,6 +55,7 @@ class Workout(models.Model):
     sets = models.CharField(max_length=250)
     reps = models.CharField(max_length=250)
     date = models.DateField(blank=True, null=True, default="")
+    #journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name="journals")
     def __str__(self):
         return self.body_part
 
@@ -74,10 +82,7 @@ class WorkoutSerializers(serializers.Serializer):
         instance.save()
         return instance
 
-class Journal(models.Model):
-    entry = models.CharField(max_length=250)
-    
-    date = models.DateField(blank=True, null=True, default="")
+
 
 # class Journal(serializers.Serializer):
 #     entry = serializers.CharField(max_length=250)
