@@ -1,6 +1,5 @@
 from django.db import models
 from rest_framework import serializers
-from django.contrib.auth.models import User
 
 class Diet(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -32,6 +31,15 @@ class DietSerializer(serializers.Serializer):
     def create(self, validated_data):
         return Diet.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        instance.breakfast = validated_data.get('breakfast', instance.breakfast)
+        instance.lunch = validated_data.get('lunch', instance.lunch)
+        instance.dinner = validated_data.get('dinner', instance.dinner)
+        instance.snack = validated_data.get('snack', instance.snack)
+        instance.hydration = validated_data.get('hydration', instance.hydration)
+        instance.date = validated_data.get('date', instance.date)
+        instance.save()
+        return instance
 
 class Workout(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -40,7 +48,6 @@ class Workout(models.Model):
     sets = models.CharField(max_length=250)
     reps = models.CharField(max_length=250)
     date = models.DateField(blank=True, null=True, default="")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     def __str__(self):
         return self.body_part
 
@@ -57,6 +64,15 @@ class WorkoutSerializers(serializers.Serializer):
 
     def create(self, validated_data):
         return Workout.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.body_part = validated_data.get('body_part', instance.body_part)
+        instance.exercise = validated_data.get('exercise', instance.exercise)
+        instance.sets = validated_data.get('sets', instance.sets)
+        instance.reps = validated_data.get('reps', instance.reps)
+        instance.date = validated_data.get('date', instance.date)
+        instance.save()
+        return instance
 
 class Journal(models.Model):
     entry = models.CharField(max_length=250)

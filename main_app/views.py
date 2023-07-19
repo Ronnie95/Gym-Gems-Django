@@ -26,14 +26,14 @@ class ListDiet(APIView):
 # Create your views here.
 class DietDetail(APIView):
     # add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+   
 
-    def get_object(self, diet_id, user_id):
+    def get_object(self, diet_id,):
         '''
         Helper method to get the object with given todo_id, and user_id
         '''
         try:
-            return Diet.objects.get(id=diet_id, user = user_id)
+            return Diet.objects.get(id=diet_id,)
         except Diet.DoesNotExist:
             return None
 
@@ -42,7 +42,7 @@ class DietDetail(APIView):
         '''
         Retrieves the diet with given diet_id
         '''
-        diet_instance = self.get_object(diet_id, request.user.id)
+        diet_instance = self.get_object(diet_id,)
         if not diet_instance:
             return Response(
                 {"res": "Object with diet id does not exists"},
@@ -57,7 +57,7 @@ class DietDetail(APIView):
         '''
         Updates the todo item with given todo_id if exists
         '''
-        diet_instance = self.get_object(diet_id, request.user.id)
+        diet_instance = self.get_object(diet_id,)
         if not diet_instance:
             return Response(
                 {"res": "Object with todo id does not exists"}, 
@@ -70,7 +70,7 @@ class DietDetail(APIView):
             'snack': request.data.get('snack'), 
             'hydration': request.data.get('hydration'), 
             'date': request.data.get('date'),  
-            'user': request.user.id
+            
         }
         serializer = DietSerializer(instance = diet_instance, data=data, partial = True)
         if serializer.is_valid():
@@ -79,11 +79,11 @@ class DietDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # 5. Delete
-    def delete(self, request, todo_id, *args, **kwargs):
+    def delete(self, request, diet_id, *args, **kwargs):
         '''
         Deletes the todo item with given todo_id if exists
         '''
-        diet_instance = self.get_object(todo_id, request.user.id)
+        diet_instance = self.get_object(diet_id,)
         if not diet_instance:
             return Response(
                 {"res": "Object with todo id does not exists"}, 
@@ -114,14 +114,14 @@ class ListWorkout(APIView):
 # Create your views here.
 class WorkoutDetail(APIView):
     # add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    
 
-    def get_object(self, workout_id, user_id):
+    def get_object(self, workout_id, ):
         '''
         Helper method to get the object with given todo_id, and user_id
         '''
         try:
-            return Workout.objects.get(id=workout_id, user = user_id)
+            return Workout.objects.get(id=workout_id, )
         except Workout.DoesNotExist:
             return None
 
@@ -130,7 +130,7 @@ class WorkoutDetail(APIView):
         '''
         Retrieves the diet with given diet_id
         '''
-        workout_instance = self.get_object(workout_id, request.user.id)
+        workout_instance = self.get_object(workout_id,)
         if not workout_instance:
             return Response(
                 {"res": "Object with breakfast id does not exists"},
@@ -145,7 +145,7 @@ class WorkoutDetail(APIView):
         '''
         Updates the todo item with given todo_id if exists
         '''
-        workout_instance = self.get_object(workout_id, request.user.id)
+        workout_instance = self.get_object(workout_id,)
         if not workout_instance:
             return Response(
                 {"res": "Object with todo id does not exists"}, 
@@ -166,11 +166,11 @@ class WorkoutDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # 5. Delete
-    def delete(self, request, todo_id, *args, **kwargs):
+    def delete(self, request, workout_id, *args, **kwargs):
         '''
         Deletes the todo item with given todo_id if exists
         '''
-        workout_instance = self.get_object(todo_id, request.user.id)
+        workout_instance = self.get_object(workout_id,)
         if not workout_instance:
             return Response(
                 {"res": "Object with todo id does not exists"}, 
