@@ -50,7 +50,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://gymgems.onrender.com'
+    'https://lucent-faloodeh-78cee4.netlify.app'
 ]
 # Application definition
 
