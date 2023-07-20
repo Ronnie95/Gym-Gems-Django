@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+#import rest_framework
 import dj_database_url
 import environ
 environ.Env()
@@ -59,10 +60,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main_app',
     'django.contrib.auth',
     'rest_framework',
     'corsheaders',
+     'main_app',
     
 ]
 
