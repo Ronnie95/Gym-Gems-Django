@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 import dj_database_url
+import environ
+environ.Env()
+environ.Env.read_env()
 
 
 from pathlib import Path
@@ -103,6 +106,7 @@ DATABASES = {
     'default': dj_database_url.config(
         conn_max_age=600, conn_health_checks=True
     )
+    
 }
 
 
