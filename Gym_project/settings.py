@@ -50,6 +50,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+    'https://gymgems.onrender.com'
 
 ]
 # Application definition
@@ -63,7 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'rest_framework',
     'corsheaders',
-     'main_app',
+     'main_app'
     
 ]
 
