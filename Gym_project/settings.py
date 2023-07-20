@@ -51,7 +51,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://gymgems.onrender.com/api',
-    'https://gymgems.onrender.com/api/workout/'
+    'https://gymgems.onrender.com/api/workout'
 
 ]
 # Application definition
